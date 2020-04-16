@@ -24,6 +24,7 @@ void Scene_edge::init_Scene_edge_cpu(cv::Mat img, std::vector<Vec2f> &pcd_buffer
 //    cv::imshow("edge", edge);
 //    cv::waitKey(0);
 
+    auto normal_buffer_fixed = normal_buffer;
     // get normals
     { // edge direction; may reuse shape_based_matching's to save time
         // calculate from canny edge is faster?
@@ -34,13 +35,14 @@ void Scene_edge::init_Scene_edge_cpu(cv::Mat img, std::vector<Vec2f> &pcd_buffer
 
         normal_buffer.clear();
         normal_buffer.resize(img.rows * img.cols);
+        normal_buffer_fixed = normal_buffer;
 
         for(int r=0; r<img.rows; r++){
             for(int c=0; c<img.cols; c++){
                 if(edge.at<uchar>(r, c) > 0){  // get normals at edge only
 
                     float theta = sobel_ag.at<float>(r, c);
-                    normal_buffer[c + r*img.cols] = {
+                    normal_buffer_fixed[c + r*img.cols] = {
                         std::cos(theta),  // x is pointing right
                         -std::sin(theta)  // y is pointing down
                     };
@@ -80,6 +82,7 @@ void Scene_edge::init_Scene_edge_cpu(cv::Mat img, std::vector<Vec2f> &pcd_buffer
                                     float(c),
                                     float(r)
                                 };
+                                normal_buffer[new_c + new_r*img.cols] = normal_buffer_fixed[c + r*img.cols];
                                 dist_buffer.at<float>(new_r, new_c) = dist_sq;
                             }
                         }
