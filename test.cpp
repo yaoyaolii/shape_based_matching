@@ -574,6 +574,6 @@ void view_angle(){
 int main(){
 
     MIPP_test();
-    angle_test();
+    angle_test("test"); // test or train
     return 0;
 }
