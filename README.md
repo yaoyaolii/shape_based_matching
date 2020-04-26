@@ -1,5 +1,7 @@
 # shape_based_matching  
 
+from source code: https://github.com/meiqua/shape_based_matching
+
 update:   
 [Transforms in shape-based matching](./Transforms%20in%20shape-based%20matching.pdf)  
 [pose refine with icp branch](https://github.com/meiqua/shape_based_matching/tree/icp2D), 0.1-0.5 degree accuracy   
@@ -56,7 +58,7 @@ Comparing to opencv linemod src, we improve from 6 aspects:
 ### Example for circle shape  
 
 #### You can imagine how many circles we will find if use edges  
-![circle1](test/case0/1.jpg)
+![circle1](test/case0/1.jpg, width='375')
 ![circle1](test/case0/result/1.png)  
 
 #### Not that circular  
